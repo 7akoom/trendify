@@ -5,125 +5,125 @@
 <section class="checkout spad">
     <div class="container">
         <div class="checkout__form">
-            <form action="#">
+            <form action="{{route('checkout')}}" method="POST">
+                @csrf
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
-                        <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click
-                        here</a> to enter your code</h6>
                         <h6 class="checkout__title">Billing Details</h6>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="checkout__input">
-                                    <p>Fist Name<span>*</span></p>
-                                    <input type="text">
+                                    <p>First Name</p>
+                                    <input name="addr[billing][first_name]" type="text">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="checkout__input">
-                                    <p>Last Name<span>*</span></p>
-                                    <input type="text">
+                                    <p>Last Name</p>
+                                    <input name="addr[billing][last_name]" type="text">
                                 </div>
                             </div>
                         </div>
                         <div class="checkout__input">
-                            <p>Country<span>*</span></p>
-                            <input type="text">
+                            <p>Address</p>
+                            <input name="addr[billing][street_address]" type="text" placeholder="Street Address" class="checkout__input__add">
+                            <input name="addr[billing][city]" type="text" placeholder="City">
+                            <input name="addr[billing][state]" type="text" placeholder="State">
+                            <input name="addr[billing][country]" type="text" placeholder="Country">
                         </div>
                         <div class="checkout__input">
-                            <p>Address<span>*</span></p>
-                            <input type="text" placeholder="Street Address" class="checkout__input__add">
-                            <input type="text" placeholder="Apartment, suite, unite ect (optinal)">
-                        </div>
-                        <div class="checkout__input">
-                            <p>Town/City<span>*</span></p>
-                            <input type="text">
-                        </div>
-                        <div class="checkout__input">
-                            <p>Country/State<span>*</span></p>
-                            <input type="text">
-                        </div>
-                        <div class="checkout__input">
-                            <p>Postcode / ZIP<span>*</span></p>
-                            <input type="text">
+                            <p>Postcode / ZIP</p>
+                            <input name="addr[billing][postal_code]" type="text">
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="checkout__input">
-                                    <p>Phone<span>*</span></p>
-                                    <input type="text">
+                                    <p>Phone</p>
+                                    <input name="addr[billing][phone]" type="text">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="checkout__input">
-                                    <p>Email<span>*</span></p>
-                                    <input type="text">
+                                    <p>Email</p>
+                                    <input name="addr[billing][email]" type="email">
                                 </div>
                             </div>
                         </div>
-                        <div class="checkout__input__checkbox">
-                            <label for="acc">
-                                Create an account?
-                                <input type="checkbox" id="acc">
-                                <span class="checkmark"></span>
-                            </label>
-                            <p>Create an account by entering the information below. If you are a returning customer
-                            please login at the top of the page</p>
-                        </div>
-                        <div class="checkout__input">
-                            <p>Account Password<span>*</span></p>
-                            <input type="text">
-                        </div>
-                        <div class="checkout__input__checkbox">
-                            <label for="diff-acc">
-                                Note about your order, e.g, special noe for delivery
-                                <input type="checkbox" id="diff-acc">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                        <div class="checkout__input">
-                            <p>Order notes<span>*</span></p>
-                            <input type="text"
-                            placeholder="Notes about your order, e.g. special notes for delivery.">
-                        </div>
                     </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="checkout__order">
-                            <h4 class="order__title">Your order</h4>
-                            <div class="checkout__order__products">Product <span>Total</span></div>
-                            <ul class="checkout__total__products">
-                                <li>01. Vanilla salted caramel <span>$ 300.0</span></li>
-                                <li>02. German chocolate <span>$ 170.0</span></li>
-                                <li>03. Sweet autumn <span>$ 170.0</span></li>
-                                <li>04. Cluten free mini dozen <span>$ 110.0</span></li>
-                            </ul>
-                            <ul class="checkout__total__all">
-                                <li>Subtotal <span>$750.99</span></li>
-                                <li>Total <span>$750.99</span></li>
-                            </ul>
-                            <div class="checkout__input__checkbox">
-                                <label for="acc-or">
-                                    Create an account?
-                                    <input type="checkbox" id="acc-or">
-                                    <span class="checkmark"></span>
-                                </label>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="checkout__order">
+                                <h4 class="order__title">Your order</h4>
+                                <div class="checkout__order__products">Product <span>Total</span></div>
+                                <ul class="checkout__total__products">
+                                    @foreach ($cart as $item)
+                                        <li>{{ sprintf('%02d', $loop->iteration) }}. {{$item->product->name}}
+                                            <span>
+                                                @if ($item->product->is_featured)
+                                                    <h5>{{$item->product->price->discount_price}}</h5>
+                                                    <input name="sale_price" type="hidden" value="{{$item->product->price->discount_price}}">
+                                                @else
+                                                    <h5>{{$item->product->price->sale_price}}</h5>
+                                                    <input name="sale_price" type="hidden" value="{{$item->product->price->sale_price}}">
+                                                @endif
+                                            </span>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                                <ul class="checkout__total__all">
+                                    <li>Total <span>{{$total}}</span></li>
+                                    <input name="total" type="hidden" value="{{$total}}">
+                                </ul>
+                                <button type="submit" class="site-btn">PLACE ORDER</button>
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua.</p>
-                            <div class="checkout__input__checkbox">
-                                <label for="payment">
-                                    Check Payment
-                                    <input type="checkbox" id="payment">
-                                    <span class="checkmark"></span>
-                                </label>
+                        </div>
+                    <div class="col-lg-8 col-md-6">
+                        <hr>
+                        <br>
+                        <br>
+                        <h6 class="checkout__title">Shipping Details</h6>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>First Name</p>
+                                    <input name="addr[shipping][first_name]" type="text">
+                                </div>
                             </div>
-                            <div class="checkout__input__checkbox">
-                                <label for="paypal">
-                                    Paypal
-                                    <input type="checkbox" id="paypal">
-                                    <span class="checkmark"></span>
-                                </label>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Last Name</p>
+                                    <input name="addr[shipping][last_name]" type="text">
+                                </div>
                             </div>
-                            <button type="submit" class="site-btn">PLACE ORDER</button>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Address</p>
+                            <input name="addr[shipping][street_address]" type="text" placeholder="Street Address" class="checkout__input__add">
+                            <input name="addr[shipping][city]" type="text" placeholder="City">
+                            <input name="addr[shipping][state]" type="text" placeholder="State">
+                            <input name="addr[shipping][country]" type="text" placeholder="Country">
+                        </div>
+                        <div class="checkout__input">
+                            <p>Postcode / ZIP</p>
+                            <input name="addr[shipping][postal_code]" type="text">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Phone</p>
+                                    <input name="addr[shipping][phone]" type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Email</p>
+                                    <input name="addr[shipping][email]" type="email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Order notes  <span class="checkout__input__checkbox text-secondary">(Note about your order, e.g, special noe for delivery)</span></p>
+                            <input name="notes" type="text"
+                            placeholder="Notes about your order, e.g. special notes for delivery.">
                         </div>
                     </div>
                 </div>

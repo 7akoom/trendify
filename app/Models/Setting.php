@@ -7,11 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Setting extends Model
 {
     protected $fillable = [
-        'logo',
         'email',
         'phone',
         'address',
         'facebook_url',
         'instagram_url',
     ];
+
+    public function logo()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }

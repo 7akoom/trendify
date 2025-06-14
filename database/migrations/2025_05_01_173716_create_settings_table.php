@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('logo');
             $table->string('email');
             $table->string('phone');
             $table->string('address');

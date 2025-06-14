@@ -9,7 +9,8 @@ class HomeService
 {
     public function index()
     {
-        $banners = Banner::select('id', 'title', 'description', 'status')
+        $banners = Banner::select('id', 'title', 'description')
+            ->where('status', true)
             ->with('images')
             ->latest()
             ->get();

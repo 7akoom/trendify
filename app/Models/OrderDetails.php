@@ -3,28 +3,22 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class OrderDetails extends Model
+class OrderDetails extends Pivot
 {
-    protected $fillable = [
-        'user_id',
-        'order_id',
-        'product_id',
-        'quantity',
-        'price',
-        'amount',
-    ];
+    protected $table = 'order_details';
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    public $incrementing = true;
+
     public function order()
     {
         return $this->belongsTo(Order::class);
     }
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class)->withDefault([
+            'name' => $this->product_name
+        ]);
     }
 }

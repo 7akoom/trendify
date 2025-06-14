@@ -79,9 +79,9 @@
             </div>
           </div>
         </div>
-        <div class="flex items-center justify-center">
+        {{-- <div class="flex items-center justify-center">
             {{ $products->links() }}
-        </div>
+        </div> --}}
       </div>
   </div>
 

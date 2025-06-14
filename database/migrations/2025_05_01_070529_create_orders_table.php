@@ -11,12 +11,13 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('order_number')->unique();
-            $table->foreignId('user_id')->constrained('users');
-            $table->float('discount');
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->float('discount')->nullable();
             $table->float('total');
-            $table->string('payment_method'); // 1 => cod
-            $table->string('payment_status'); // 1 => paid, 2 => unpaid
-            $table->string('status'); // 1 => cancelled, 2 => delivered, 3 => new, 4 => process
+            $table->string('payment_method');
+            $table->text('notes')->nullable();
+            $table->enum('payment_status', \App\Enums\PaymentStatus::values())->default('غير مدفوع');
+            $table->enum('status', \App\Enums\OrderStatus::values())->default('معلّق');
             $table->timestamps();
         });
     }

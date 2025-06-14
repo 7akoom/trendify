@@ -43,7 +43,7 @@
             <div class="col-lg-3 col-md-3">
                 <div class="header__logo">
                     <a href="{{route('home')}}">
-                        <img src="{{ asset("assets/front/img/logo.png") }}" alt="">
+                        <img src="{{ asset("assets/front/img/trendy-logo.png") }}" alt="">
                     </a>
                 </div>
             </div>
@@ -68,8 +68,12 @@
             </div>
             <div class="col-lg-3 col-md-3">
                 <div class="header__nav__option">
-                    <a href=""><img src="{{ asset("assets/front/img/icon/cart.png") }}" alt=""> <span>{{ count(session('cart', [])) }}</span></a>
-                    <div class="price">{{ array_sum(array_map(function($item) { return $item['price'] * $item['quantity']; }, session('cart', []))) }}</div>
+                    <a href="{{ route('cart.index') }}">
+                        <img style="width: 20px;" src="{{ asset('assets/front/img/icon/cart.png') }}" alt="">
+                        <span id="cart-count">{{ $cartCount }}</span>
+                    </a>
+                    
+                    <div id="cart-total" class="price">{{ $cartTotal }}</div>
                 </div>
             </div>
         </div>

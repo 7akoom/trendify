@@ -40,53 +40,51 @@
                 <div class="col-lg-8">
                     <div class="product__details__text">
                         <h4>{{$product->name}}</h4>
-                        {{-- <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                            <span> - 5 Reviews</span>
-                        </div> --}}
                         @if ($product->is_featured)
                             <h3>{{ $product->price->discount_price }}</h3>
                             <span style="text-decoration: line-through;">{{ $product->price->sale_price }}</span>
                         @else
                             <h3>{{ $product->price->sale_price }}</h3>
                         @endif
-                        <div class="product__details__option">
-                            @if ($product->sizes?->isNotEmpty())
-                                <div class="product__details__option__size">
-                                    <span>القياسات:</span>
-                                    @foreach ($product->sizes as $size)
-                                        <label for="size_{{ $size->id }}">
-                                            {{ $size->name }}
-                                            <input type="radio" name="size_id" id="size_{{ $size->id }}" value="{{ $size->id }}">
-                                        </label>
-                                    @endforeach
-                                </div>
-                            @endif
-                            @if ($product->colors?->isNotEmpty())
-                                <div class="product__details__option__color">
-                                    <span>الألوان:</span>
-                                    @foreach ($product->colors as $color)
-                                        <label style="background-color: #{{ $color->hex }};width: 36px; height: 36px; display: inline-block; border-radius: 50%; margin-right: 5px; cursor: pointer;" title="{{ $color->hex }}">
-                                            <input type="radio" name="color_id" value="{{ $color->id }}" style="display: none;">
-                                        </label>
-                                    @endforeach
-                                </div>
-                            @endif
-                        </div>
-                        <div class="product__details__cart__option">
-                            <div class="quantity">
-                                <div class="pro-qty">
-                                    <input type="text" value="1">
-                                </div>
+                        <form action="{{route('cart.store')}}" method="POST">
+                            @csrf
+                        
+                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                            <div class="product__details__option">
+                                @if ($product->sizes?->isNotEmpty())
+                                    <div class="product__details__option__size">
+                                        <span>القياسات:</span>
+                                        @foreach ($product->sizes as $size)
+                                            <label for="size_{{ $size->id }}">
+                                                {{ $size->name }}
+                                                <input type="radio" name="size_id" id="size_{{ $size->id }}" value="{{ $size->id }}">
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                @endif
+                                @if ($product->colors?->isNotEmpty())
+                                    <div class="product__details__option__color">
+                                        <span>الألوان:</span>
+                                        @foreach ($product->colors as $color)
+                                            <label style="background-color: #{{ $color->hex }};width: 36px; height: 36px; display: inline-block; border-radius: 50%; margin-right: 5px; cursor: pointer;" title="{{ $color->hex }}">
+                                                <input type="radio" name="color_id" value="{{ $color->id }}" style="display: none;">
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                @endif
                             </div>
-                            <a href="#" class="primary-btn">
-                                <i class="fa fa-shopping-cart"></i>
-                            </a>
-                        </div>
+                            <div class="product__details__cart__option">
+                                <div class="quantity">
+                                    <div class="pro-qty">
+                                        <input name="qty" type="text" value="1">
+                                    </div>
+                                </div>
+                                <button type="submit" href="#" class="primary-btn">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </button>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>

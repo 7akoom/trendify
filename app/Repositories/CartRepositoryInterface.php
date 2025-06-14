@@ -2,14 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Support\Collection;
 
 interface CartRepositoryInterface
 {
-    public function all(): Collection;
-    public function find(string $id): ?Cart;
-    public function create(array $data): Cart;
-    public function update(Cart $cart, array $data): Cart;
-    public function delete(Cart $cart): void;
+    public function get(): Collection;
+    public function add(Product $product, $qty = 1);
+    public function update($id, $qty);
+    public function delete($id);
+    public function empty();
+    public function total(): float;
+    public function count(): int;
 }

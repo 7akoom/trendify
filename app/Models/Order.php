@@ -2,48 +2,78 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
     protected $fillable = [
-        'order_number',
         'user_id',
         'discount',
         'total',
         'payment_method',
         'payment_status',
-        'status'
+        'status',
+        'sub_total',
+        'discount',
+        'total',
+        'notes',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withDefault([
+            'name' => 'Anonymous'
+        ]);
     }
 
-    public function getStatusLogsAttribute()
+    public function products()
     {
-        return OrderLog::where('order_id', $this->id)
-            ->where('type', 2)
-            ->orderByDesc('created_at')
-            ->get();
+        return $this->belongsToMany(Product::class, 'order_details')
+            ->using(OrderDetails::class)
+            ->withPivot([
+                'product_name',
+                'purchase_price',
+                'sale_price',
+                'quantity',
+                'color_id',
+                'size_id',
+                'amount',
+                'notes',
+            ]);
     }
 
-    public function getPaymentStatusLogsAttribute()
+    protected static function booted()
     {
-        return OrderLog::where('order_id', $this->id)
-            ->where('type', 1)
-            ->orderByDesc('created_at')
-            ->get();
+        static::creating(function (Order $order) {
+            $order->order_number = Order::getNextOrderNumber();
+        });
     }
 
-    public function orderDetails()
+    public static function getNextOrderNumber()
     {
-        return $this->hasMany(OrderDetails::class);
+        $year = Carbon::now()->year;
+        $last_number = Order::whereYear('created_at', $year)->max('order_number');
+        if ($last_number) {
+            return $last_number + 1;
+        }
+        return $year . '0001';
     }
 
-    public function orderLogs()
+    public function addresses()
     {
-        return $this->hasMany(OrderLog::class);
+        return $this->hasMany(OrderAddress::class);
+    }
+
+    public function billingAddress()
+    {
+        return $this->hasOne(OrderAddress::class, 'order_id', 'id')
+            ->where('type', 'billing');
+    }
+
+    public function shippingAddress()
+    {
+        return $this->hasOne(OrderAddress::class, 'order_id', 'id')
+            ->where('type', 'shipping');
     }
 }

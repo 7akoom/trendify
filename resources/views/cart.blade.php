@@ -10,130 +10,71 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Product</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
+                                <th>{{__('messages.Product')}}</th>
+                                <th>{{__('messages.Quantity')}}</th>
+                                <th>{{__('messages.Total')}}</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            @foreach ($carts as $item)
+                            <tr data-id="{{ $item->id }}" data-unit-price="{{ $item->product->is_featured ? $item->product->price->discount_price : $item->product->price->sale_price }}">
                                 <td class="product__cart__item">
                                     <div class="product__cart__item__pic">
-                                        <img src="img/shopping-cart/cart-1.jpg" alt="">
+                                        <img src="{{ asset("storage/".$item->featuredImage?->path) }}"
+                                        style="width:150px; heigh:150px;"    
+                                        alt="Product Image">
                                     </div>
                                     <div class="product__cart__item__text">
-                                        <h6>T-shirt Contrast Pocket</h6>
-                                        <h5>$98.49</h5>
+                                        <h6>{{$item->product->name}}</h6>
+                                        @if ($item->product->is_featured)
+                                        <h5>{{$item->product->price->discount_price}}</h5>
+                                        @else
+                                        <h5>{{$item->product->price->sale_price}}</h5>
+                                        @endif
                                     </div>
                                 </td>
                                 <td class="quantity__item">
                                     <div class="quantity">
                                         <div class="pro-qty-2">
-                                            <input type="text" value="1">
+                                            <input class="qty" data-id="{{$item->id}}" type="text" value="{{$item->qty}}">
                                         </div>
                                     </div>
                                 </td>
-                                <td class="cart__price">$ 30.00</td>
-                                <td class="cart__close"><i class="fa fa-close"></i></td>
+                                <td class="cart__price">
+                                    {{ $item->qty * ($item->product->is_featured ? $item->product->price->discount_price : $item->product->price->sale_price) }}
+                                </td>                                
+                                <td class="cart__close">
+                                    <a href="javascript:void(0)" class="remove-item" data-id="{{$item->id}}">
+                                        <i class="fa fa-close"></i>
+                                    </a>
+                                </td>
                             </tr>
-                            <tr>
-                                <td class="product__cart__item">
-                                    <div class="product__cart__item__pic">
-                                        <img src="img/shopping-cart/cart-2.jpg" alt="">
-                                    </div>
-                                    <div class="product__cart__item__text">
-                                        <h6>Diagonal Textured Cap</h6>
-                                        <h5>$98.49</h5>
-                                    </div>
-                                </td>
-                                <td class="quantity__item">
-                                    <div class="quantity">
-                                        <div class="pro-qty-2">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="cart__price">$ 32.50</td>
-                                <td class="cart__close"><i class="fa fa-close"></i></td>
-                            </tr>
-                            <tr>
-                                <td class="product__cart__item">
-                                    <div class="product__cart__item__pic">
-                                        <img src="img/shopping-cart/cart-3.jpg" alt="">
-                                    </div>
-                                    <div class="product__cart__item__text">
-                                        <h6>Basic Flowing Scarf</h6>
-                                        <h5>$98.49</h5>
-                                    </div>
-                                </td>
-                                <td class="quantity__item">
-                                    <div class="quantity">
-                                        <div class="pro-qty-2">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="cart__price">$ 47.00</td>
-                                <td class="cart__close"><i class="fa fa-close"></i></td>
-                            </tr>
-                            <tr>
-                                <td class="product__cart__item">
-                                    <div class="product__cart__item__pic">
-                                        <img src="img/shopping-cart/cart-4.jpg" alt="">
-                                    </div>
-                                    <div class="product__cart__item__text">
-                                        <h6>Basic Flowing Scarf</h6>
-                                        <h5>$98.49</h5>
-                                    </div>
-                                </td>
-                                <td class="quantity__item">
-                                    <div class="quantity">
-                                        <div class="pro-qty-2">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="cart__price">$ 30.00</td>
-                                <td class="cart__close"><i class="fa fa-close"></i></td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="continue__btn">
-                            <a href="#">Continue Shopping</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="continue__btn update__btn">
-                            <a href="#"><i class="fa fa-spinner"></i> Update cart</a>
+                            <a href="{{ route('shop') }}"> {{__('messages.Continue Shopping')}}</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="cart__discount">
-                    <h6>Discount codes</h6>
-                    <form action="#">
-                        <input type="text" placeholder="Coupon code">
-                        <button type="submit">Apply</button>
-                    </form>
-                </div>
                 <div class="cart__total">
                     <h6>Cart total</h6>
                     <ul>
-                        <li>Subtotal <span>$ 169.50</span></li>
-                        <li>Total <span>$ 169.50</span></li>
+                        <li>Subtotal <span>{{$total}}</span></li>
+                        <li>Total <span>{{$total}}</span></li>
                     </ul>
-                    <a href="{{route('check-out')}}" class="primary-btn">Proceed to checkout</a>
+                    <a href="{{ route('checkout') }}" class="primary-btn">Proceed to checkout</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 <!-- Shopping Cart Section End -->
-
-
 @endsection
+

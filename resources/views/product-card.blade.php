@@ -27,7 +27,7 @@
         
         <div class="product__item__text">
             <h6>{{$pro->name}}</h6>
-            <a href="#" class="add-cart">+ أضف إلى السلة</a>
+            <a href="#" data-id="{{$pro->id}}" class="add-cart">+ أضف إلى السلة</a>
             @if ($pro->is_featured)
                 <h5>{{ $pro->price->discount_price }}</h5>
                 <span style="text-decoration: line-through;">{{ $pro->price->sale_price }}</span>

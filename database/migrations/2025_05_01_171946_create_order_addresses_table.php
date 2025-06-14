@@ -8,17 +8,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('shipping_addresses', function (Blueprint $table) {
+        Schema::create('order_addresses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained('orders');
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
+            $table->enum('type', \App\Enums\AddressType::values());
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->nullable();
-            $table->string('phone');
+            $table->string('phone')->nullable();
+            $table->text('street_address');
+            $table->string('city');
+            $table->string('postal_code')->nullable();
+            $table->string('state')->nullable();
             $table->string('country');
-            $table->string('post_code')->nullable();
-            $table->text('address1');
-            $table->text('address2')->nullable();
             $table->timestamps();
         });
     }

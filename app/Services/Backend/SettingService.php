@@ -4,12 +4,14 @@ namespace App\Services\Backend;
 
 use App\Models\Setting;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class SettingService
 {
-    public function all(): Collection
+    public function all(): ?Setting
     {
-        return Setting::select('id', 'logo', 'email', 'phone', 'address', 'facebook_url', 'instagram_url')->get();
+        return Setting::select('id', 'email', 'phone', 'address', 'facebook_url', 'instagram_url')
+            ->with('logo')->first();
     }
 
     public function create(array $data): Setting
@@ -22,6 +24,9 @@ class SettingService
         $setting->update($data);
         return $setting;
     }
+
+
+
 
     public function delete(Setting $setting): void
     {

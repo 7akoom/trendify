@@ -19,8 +19,8 @@
     <link rel="stylesheet" href="{{ asset('assets/front/css/nice-select.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('assets/front/css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('assets/front/css/slicknav.min.css') }}" type="text/css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/front/css/style.css') }}?v={{ time() }}" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @vite(['resources/front/sass/style.scss'])
 
@@ -68,7 +68,7 @@
     <script src="{{ asset('assets/front/js/mixitup.min.js') }}"></script>
     <script src="{{ asset('assets/front/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('assets/front/js/main.js') }}"></script>
-
+    @include('partials.front.scripts')
     @yield('script')
 </body>
 

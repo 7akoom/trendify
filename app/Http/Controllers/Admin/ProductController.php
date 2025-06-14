@@ -108,7 +108,7 @@ class ProductController extends Controller
 
     public function filterByCategory(Request $request)
     {
-        $products = Product::with(['featuredImage', 'prices', 'variants.color', 'variants.size'])
+        $products = Product::with(['featuredImage', 'price', 'colors', 'sizes'])
             ->where('category_id', $request->category_id)->get();
         $view = view('products-list', compact('products'))->render();
 
@@ -119,7 +119,7 @@ class ProductController extends Controller
     {
         $type = $request->type;
 
-        $products = Product::with(['featuredImage', 'prices', 'variants.color', 'variants.size'])
+        $products = Product::with(['featuredImage', 'price', 'colors', 'sizes'])
             ->when($type === 'featured', fn($q) => $q->where('is_featured', true))
             ->when($type === 'new', fn($q) => $q->where('is_new', true))
             ->where('is_active', true)

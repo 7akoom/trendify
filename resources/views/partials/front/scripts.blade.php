@@ -1,0 +1,165 @@
+@if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'تمت العملية',
+            text: "{{ session('success') }}",
+            timer: 2000,
+            showConfirmButton: false
+        });
+    </script>
+@endif
+
+@if(session('error'))
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: 'حدث خطأ',
+            text: "{{ session('error') }}",
+            timer: 2000,
+            showConfirmButton: false
+        });
+    </script>
+@endif
+
+<script>
+    $(document).ready(function() {
+        const csrf_token = '{{ csrf_token() }}';
+
+        // تحديث السعر الكلي بجمع أسعار كل المنتجات في الجدول
+        function updateCartTotal() {
+            let total = 0;
+            $('tbody tr').each(function() {
+                let price = parseFloat($(this).find('.cart__price').text());
+                if (!isNaN(price)) {
+                    total += price;
+                }
+            });
+            $('#cart-subtotal').text(total.toFixed(2));
+            $('#cart-total').text(total.toFixed(2));
+        }
+
+        // إرسال تحديث الكمية للسيرفر وتحديث السعر في الواجهة
+        function sendUpdate(input) {
+            let id = input.data('id');
+            let qty = parseInt(input.val());
+
+            if (isNaN(qty) || qty < 1) {
+                qty = 1;
+                input.val(qty);
+            }
+
+            let row = $('tr[data-id="' + id + '"]');
+            let unitPrice = parseFloat(row.data('unit-price'));
+            let totalPrice = (unitPrice * qty).toFixed(2);
+
+            // تحديث السعر في الجدول
+            row.find('.cart__price').text(totalPrice);
+
+            updateCartTotal();
+
+            $.ajax({
+                url: '/cart/' + id,
+                type: 'POST',
+                data: {
+                    qty: qty,
+                    _token: csrf_token,
+                    _method: 'PUT'
+                },
+                success: function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'تم تحديث الكمية بنجاح',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+
+        // عند تغيير القيمة يدوياً في الحقل
+        $(document).on('input', '.qty', function () {
+            sendUpdate($(this));
+        });
+
+        // أزرار الزيادة والنقصان (مثلاً span فيها + و -)
+        $(document).on('click', '.qtybtn', function () {
+            let input = $(this).siblings('input.qty');
+            let currentVal = parseInt(input.val());
+            if ($(this).hasClass('qty-plus')) {
+                input.val(currentVal + 1);
+            } else if ($(this).hasClass('qty-minus') && currentVal > 1) {
+                input.val(currentVal - 1);
+            }
+            sendUpdate(input);
+        });
+    });
+</script>
+<script>
+    $(document).on('click', '.remove-item', function(e){
+        e.preventDefault();
+
+        let id = $(this).data('id');
+        const csrf_token = '{{ csrf_token() }}';
+
+        $.ajax({
+            url: '/cart/' + id,
+            type: 'POST',
+            data: {
+                _method: 'DELETE',
+                _token: csrf_token
+            },
+            success: function (response) {
+                // إزالة الصف من الجدول
+                $(`tr[data-id="${id}"]`).remove();
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'تم حذف العنصر بنجاح',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                $('#cart-count').text(response.cartCount);
+                $('#cart-total').text(response.cartTotal);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    });
+
+    $(document).on('click', '.add-cart', function(e){
+    e.preventDefault();
+
+    const csrf_token = '{{ csrf_token() }}';
+
+    $.ajax({
+        url: '/cart',
+        type: 'POST',
+        data: {
+            product_id: $(this).data('id'),
+            qty: 1,
+            _token: csrf_token
+        },
+        success: function (response) {
+            Swal.fire({
+                icon: 'success',
+                title: 'تم إضافة المنتج إلى سلتك بنجاح',
+                timer: 1500,
+                showConfirmButton: false
+            });
+            $('#cart-count').text(response.cartCount);
+            $('#cart-total').text(response.cartTotal);
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    });
+});
+
+</script>
+
+

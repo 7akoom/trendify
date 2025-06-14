@@ -18,9 +18,16 @@ return new class extends Migration
             $table->foreignId('product_id')
                 ->constrained('products')
                 ->cascadeOnDelete();
-            $table->float('price');
-            $table->integer('quantity');
-            $table->float('amount');
+            $table->foreignId('color_id')
+                ->nullable()
+                ->constrained('colors')
+                ->cascadeOnDelete();
+            $table->foreignId('size_id')
+                ->nullable()
+                ->constrained('sizes')
+                ->cascadeOnDelete();
+            $table->unsignedSmallInteger('qty')->default(1);
+            $table->unique(['order_id', 'product_id']);
             $table->timestamps();
         });
     }

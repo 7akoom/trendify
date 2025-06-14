@@ -20,7 +20,7 @@ class ProductService
                 'featuredImage',
                 'price'
             ])
-            ->paginate(10);
+            ->get();
     }
 
     public function create(array $data, array $images): Product

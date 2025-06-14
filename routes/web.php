@@ -3,26 +3,22 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
     DashboardController,
-    CartController,
-    OrderController,
     BannerController,
-    ReviewController,
     ProductController,
     SettingController,
     CategoryController,
-    OrderLogController,
     DepartmentController,
     ColorController,
-    OrderDetailsController,
-    ShippingAddressController,
     SizeController,
-    StoreHouseController,
-    AdminAuthController
+    AdminAuthController,
+    OrderController,
 };
 use App\Http\Controllers\Front\{
     HomeController,
     ShopController,
     AuthController,
+    CartController,
+    CheckoutController,
     ForgotPasswordController,
     ResetPasswordController
 };
@@ -45,6 +41,14 @@ Route::controller(ProductController::class)
         Route::get('/filter-products-by-feature', 'filterFeaturedOrNew')->name('filter.products.type');
         Route::get('/product/show/{product}', 'show')->name('product.show');
     });
+
+Route::resource('cart', CartController::class);
+
+Route::middleware('auth:web')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('user.logout');
+    Route::get('checkout', [CheckoutController::class, 'create'])->name('checkout');
+    Route::post('checkout', [CheckoutController::class, 'store']);
+});
 
 Route::get('lang/{locale}', function ($locale) {
     if (!in_array($locale, ['en', 'ar'])) {
@@ -82,9 +86,6 @@ Route::middleware('guest:web')->group(function () {
         });
 });
 
-Route::middleware('auth:web')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout'])->name('user.logout');
-});
 
 Route::middleware('auth:admin')->prefix('admin')->as('admin.')->group(function () {
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
@@ -97,15 +98,10 @@ Route::middleware('auth:admin')->prefix('admin')->as('admin.')->group(function (
     Route::resource('products', ProductController::class)->except('show');
     Route::resource('colors', ColorController::class);
     Route::resource('sizes', SizeController::class);
-    Route::resource('store-house', StoreHouseController::class);
     Route::delete('images/{image}', [ProductController::class, 'destroyImage'])->name('admin.images.destroy');
     Route::resource('banners', BannerController::class);
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::get('/settings/edit/{setting}', [SettingController::class, 'edit'])->name('settings.edit');
+    Route::put('/settings/{setting}', [SettingController::class, 'update'])->name('settings.update');
+    Route::resource('orders', OrderController::class);
 });
-
-// Route::resource('orders', OrderController::class);
-// Route::resource('order-details', OrderDetailsController::class);
-// Route::resource('shipping-addresses', ShippingAddressController::class);
-// Route::resource('reviews', ReviewController::class);
-// Route::resource('carts', CartController::class);
-// Route::resource('settings', SettingController::class);
-// Route::resource('order-logs', OrderLogController::class);

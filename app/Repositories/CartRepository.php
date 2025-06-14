@@ -3,33 +3,95 @@
 namespace App\Repositories;
 
 use App\Models\Cart;
+use App\Models\Product;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class CartRepository implements CartRepositoryInterface
 {
-    public function all(): Collection
+    protected $items;
+
+    public function __construct()
     {
-        return Cart::with(['product', 'user'])->get();
+        $this->items = \collect([]);
     }
 
-    public function find(string $id): ?Cart
+    protected function query()
     {
-        return Cart::find($id);
+        $query = Cart::with(['product', 'user', 'featuredImage']);
+
+        if (Auth::check()) {
+            $query->where('user_id', Auth::id());
+        } else {
+            $cookieId = Cookie::get('cart_id');
+            $query->where('cookie_id', $cookieId);
+        }
+
+        return $query;
     }
 
-    public function create(array $data): Cart
+    public function get(): Collection
     {
-        return Cart::create($data);
+        if (!$this->items->count()) {
+            $this->items = $this->query()->get();
+        }
+        return $this->items;
     }
 
-    public function update(Cart $cart, array $data): Cart
+    public function count(): int
     {
-        $cart->update($data);
-        return $cart;
+        return $this->get()->count();
     }
 
-    public function delete(Cart $cart): void
+    public function add(Product $product, $qty = 1)
     {
-        $cart->delete();
+        $item = Cart::where('product_id', $product->id)->first();
+        if (!$item) {
+            return Cart::create([
+                'user_id' => Auth::id(),
+                'product_id' => $product->id,
+                'qty' => $qty,
+            ]);
+            $this->get()->push($cart);
+        }
+        return $item->increment('qty', $qty);
+    }
+
+    public function update($id, $qty)
+    {
+        Cart::where('id', $id)
+            ->update([
+                'qty' => $qty,
+            ]);
+    }
+
+    public function delete($id)
+    {
+        Cart::where('id', $id)->delete();
+    }
+
+    public function empty()
+    {
+        Cart::query()->delete();
+    }
+
+    public function total(): float
+    {
+        return $this->get()->sum(function ($item) {
+            $product = optional($item->product);
+            $price   = optional($product->price);
+
+            $discountPrice = $price->discount_price ?? 0;
+            $salePrice     = $price->sale_price ?? 0;
+            $isFeatured    = $product->is_featured ?? false;
+
+            if ($isFeatured && $discountPrice > 0) {
+                return $item->qty * $discountPrice;
+            }
+            return $item->qty * $salePrice;
+        });
     }
 }

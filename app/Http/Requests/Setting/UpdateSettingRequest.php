@@ -9,7 +9,6 @@ class UpdateSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'logo' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string|max:20',
             'address' => 'required|string',

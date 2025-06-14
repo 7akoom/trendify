@@ -4,18 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ShippingAddress extends Model
+class OrderAddress extends Model
 {
     protected $fillable = [
         'order_id',
+        'type',
         'first_name',
         'last_name',
         'email',
         'phone',
+        'street_address',
+        'state',
+        'city',
         'country',
-        'post_code',
-        'address1',
-        'address2',
+        'postal_code',
     ];
 
     public function order()
