@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Exception;
 use App\Models\{Size, Color, Image, Product, Category};
-use App\Traits\WebResponse;
 use Illuminate\Http\Request;
 use App\Services\Backend\ProductService;
 use Illuminate\Support\Facades\{Log, Storage};
@@ -13,8 +12,6 @@ use App\Http\Requests\Product\{StoreProductRequest, UpdateProductRequest};
 
 class ProductController extends Controller
 {
-    use WebResponse;
-
     public function __construct(private ProductService $service) {}
 
     public function index()
@@ -92,7 +89,9 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $this->service->delete($product);
-        return $this->redirectWithMessage('admin.products.index', 'Product deleted successfully');
+        return redirect()
+            ->route('admin.products.index')
+            ->with('success', 'تم حذف المنتج بنجاح');
     }
 
     public function destroyImage(Image $image)

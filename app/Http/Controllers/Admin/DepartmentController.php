@@ -3,15 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Department;
-use App\Traits\WebResponse;
 use App\Services\Backend\DepartmentService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Department\{StoreDepartmentRequest, UpdateDepartmentRequest};
 
 class DepartmentController extends Controller
 {
-    use WebResponse;
-
     public function __construct(private DepartmentService $service) {}
 
     public function index()

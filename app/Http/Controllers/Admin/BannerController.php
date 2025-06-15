@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Exception;
 use App\Models\Banner;
-use App\Traits\WebResponse;
 use App\Services\Backend\BannerService;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -13,8 +12,6 @@ use App\Http\Requests\Banner\UpdateBannerRequest;
 
 class BannerController extends Controller
 {
-    use WebResponse;
-
     public function __construct(private BannerService $service) {}
 
     public function index()
@@ -60,12 +57,16 @@ class BannerController extends Controller
     public function update(UpdateBannerRequest $request, Banner $banner)
     {
         $this->service->update($banner, $request->validated());
-        return $this->redirectWithMessage('admin.banners.index', 'Banner updated.');
+        return redirect()
+            ->route('admin.banners.index')
+            ->with('success', 'Banner updated.');
     }
 
     public function destroy(Banner $banner)
     {
         $this->service->delete($banner);
-        return $this->redirectWithMessage('admin.banners.index', 'Banner deleted.');
+        return redirect()
+            ->route('admin.banners.index')
+            ->with('success', 'Banner deleted.');
     }
 }

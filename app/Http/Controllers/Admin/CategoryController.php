@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use App\Models\Department;
-use App\Traits\WebResponse;
 use App\Services\Backend\CategoryService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StoreCategoryRequest;
@@ -12,8 +11,6 @@ use App\Http\Requests\Category\UpdateCategoryRequest;
 
 class CategoryController extends Controller
 {
-    use WebResponse;
-
     public function __construct(private CategoryService $service) {}
 
     public function index()

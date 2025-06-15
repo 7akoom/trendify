@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Models\Cart;
-use App\Models\User;
 use App\Models\Product;
-use App\Traits\WebResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\CartRepositoryInterface;
 
 class CartController extends Controller
 {
-    use WebResponse;
-
     public function __construct(private CartRepositoryInterface $cartRepo) {}
 
     public function index()
@@ -57,7 +52,9 @@ class CartController extends Controller
 
         $this->cartRepo->update($id, $request->post('qty'));
 
-        return $this->redirectWithMessage('cart.index', 'Cart item updated.');
+        return redirect()
+            ->route('admin.banners.index')
+            ->with('success', 'Cart item updated.');
     }
 
     public function destroy($id)
@@ -73,6 +70,8 @@ class CartController extends Controller
                 'cartTotal' => $cartRepo->total(),
             ]);
         }
-        return $this->redirectWithMessage('cart.index', 'Cart item removed.');
+        return redirect()
+            ->route('admin.banners.index')
+            ->with('success', 'Cart item removed.');
     }
 }
