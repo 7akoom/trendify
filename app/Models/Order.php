@@ -34,12 +34,10 @@ class Order extends Model
             ->withPivot([
                 'product_name',
                 'purchase_price',
+                'discount_price',
                 'sale_price',
                 'quantity',
-                'color_id',
-                'size_id',
                 'amount',
-                'notes',
             ]);
     }
 
@@ -68,12 +66,12 @@ class Order extends Model
     public function billingAddress()
     {
         return $this->hasOne(OrderAddress::class, 'order_id', 'id')
-            ->where('type', 'billing');
+            ->where('type', 'دفع');
     }
 
     public function shippingAddress()
     {
         return $this->hasOne(OrderAddress::class, 'order_id', 'id')
-            ->where('type', 'shipping');
+            ->where('type', 'شحن');
     }
 }

@@ -48,15 +48,21 @@
                             <td class="align-middle text-center">{{ $ord->total }}</td>
                             <td class="align-middle text-center">{{ $ord->created_at->format('Y-m-d') }}</td>
                             <td class="align-middle text-center">
-                                <a href="{{ route('admin.orders.edit', $ord->id) }}">
-                                    تعديل
-                                </a>
+                               
+                              <a href="{{ route('admin.orders.show', $ord->id) }}">
+                                تفاصيل
+                              </a>
 
-                                <a href="#"
-                                   class="delete-btn text-danger font-weight-bold m-3"
-                                   data-id="{{ $ord->id }}">
-                                   حذف
-                                </a>
+                              <a href="{{ route('admin.orders.edit', $ord->id) }}">
+                                    تعديل
+                              </a>
+
+                              <a href="#"
+                                  class="delete-btn text-danger font-weight-bold m-3"
+                                  data-id="{{ $ord->id }}">
+                                  حذف
+                              </a>
+
                                 <form id="delete-form-{{ $ord->id }}"
                                       action="{{ route('admin.orders.destroy', $ord->id) }}"
                                       method="POST"

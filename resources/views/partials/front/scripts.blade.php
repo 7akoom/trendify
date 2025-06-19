@@ -23,23 +23,24 @@
 @endif
 
 <script>
+
+    function updateCartTotal() {
+        let total = 0;
+        $('tbody tr').each(function() {
+            let price = parseFloat($(this).find('.cart__price').text());
+            if (!isNaN(price)) {
+                total += price;
+            }
+        });
+        $('#cart-subtotal').text(total);
+        $('#cart-total').text(total);
+        $('#cart-page-subtotal').text(total);
+        $('#cart-page-total').text(total);
+    }
+
     $(document).ready(function() {
         const csrf_token = '{{ csrf_token() }}';
 
-        // تحديث السعر الكلي بجمع أسعار كل المنتجات في الجدول
-        function updateCartTotal() {
-            let total = 0;
-            $('tbody tr').each(function() {
-                let price = parseFloat($(this).find('.cart__price').text());
-                if (!isNaN(price)) {
-                    total += price;
-                }
-            });
-            $('#cart-subtotal').text(total.toFixed(2));
-            $('#cart-total').text(total.toFixed(2));
-        }
-
-        // إرسال تحديث الكمية للسيرفر وتحديث السعر في الواجهة
         function sendUpdate(input) {
             let id = input.data('id');
             let qty = parseInt(input.val());
@@ -51,9 +52,8 @@
 
             let row = $('tr[data-id="' + id + '"]');
             let unitPrice = parseFloat(row.data('unit-price'));
-            let totalPrice = (unitPrice * qty).toFixed(2);
+            let totalPrice = (unitPrice * qty);
 
-            // تحديث السعر في الجدول
             row.find('.cart__price').text(totalPrice);
 
             updateCartTotal();
@@ -73,6 +73,8 @@
                         timer: 2000,
                         showConfirmButton: false
                     });
+                    $('#cart-count').text(response.cartCount);
+                    $('#cart-total').text(response.cartTotal);
                 },
                 error: function (xhr, status, error) {
                     console.error('Error:', error);
@@ -80,12 +82,10 @@
             });
         }
 
-        // عند تغيير القيمة يدوياً في الحقل
         $(document).on('input', '.qty', function () {
             sendUpdate($(this));
         });
 
-        // أزرار الزيادة والنقصان (مثلاً span فيها + و -)
         $(document).on('click', '.qtybtn', function () {
             let input = $(this).siblings('input.qty');
             let currentVal = parseInt(input.val());
@@ -113,7 +113,6 @@
                 _token: csrf_token
             },
             success: function (response) {
-                // إزالة الصف من الجدول
                 $(`tr[data-id="${id}"]`).remove();
 
                 Swal.fire({
@@ -122,8 +121,10 @@
                     timer: 1500,
                     showConfirmButton: false
                 });
+                $('#cart-mobile-count').text(response.cartCount);
                 $('#cart-count').text(response.cartCount);
                 $('#cart-total').text(response.cartTotal);
+                updateCartTotal();
             },
             error: function (xhr, status, error) {
                 console.error('Error:', error);
@@ -152,7 +153,10 @@
                 showConfirmButton: false
             });
             $('#cart-count').text(response.cartCount);
+            $('#cart-mobile-count').text(response.cartCount);
             $('#cart-total').text(response.cartTotal);
+            $('#cart-page-subtotal').text(total);
+            $('#cart-page-total').text(total);
         },
         error: function (xhr, status, error) {
             console.error('Error:', error);
@@ -162,4 +166,23 @@
 
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const checkbox = document.getElementById('sameAsBilling');
 
+        checkbox.addEventListener('change', function () {
+            const fields = ['first_name', 'last_name', 'street_address', 'city', 'state', 'country', 'postal_code', 'phone', 'email'];
+
+            fields.forEach(field => {
+                const billing = document.querySelector(`[name="addr[billing][${field}]"]`);
+                const shipping = document.querySelector(`[name="addr[shipping][${field}]"]`);
+
+                if (checkbox.checked) {
+                    shipping.value = billing.value;
+                } else {
+                    shipping.value = '';
+                }
+            });
+        });
+    });
+</script>

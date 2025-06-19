@@ -75,12 +75,10 @@
                     
                     <div id="cart-total" class="price">
                         {{ $cartTotal }} 
-                        @if(App::getLocale() === 'ar')
-                            د.إ
-                        @else
-                            AED
-                        @endif
                     </div>                    
+                        <span class="currency">
+                            @if(App::getLocale() === 'ar') د.إ @else AED @endif
+                          </span>
                 </div>
             </div>
         </div>

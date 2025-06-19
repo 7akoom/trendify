@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Order;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Backend\OrderService;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -14,5 +16,15 @@ class OrderController extends Controller
     {
         $orders = $this->service->all();
         return view('admin.orders.index', compact('orders'));
+    }
+
+    public function show(Order $order)
+    {
+        try {
+            $order = $this->service->show($order);
+            return view('admin.orders.show', compact('order'));
+        } catch (\Throwable $th) {
+            Log::info($th->getMessage());
+        }
     }
 }

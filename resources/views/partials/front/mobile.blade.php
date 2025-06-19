@@ -15,15 +15,13 @@
             </div>
         </div>
         <div class="offcanvas__nav__option">
-            <a href="#"><img src="{{ asset("assets/front/img/icon/cart.png") }}" alt=""> <span>{{$cartCount}}</span></a>
-            <div class="price">
+            <a href="{{route('cart.index')}}"><img src="{{ asset("assets/front/img/icon/cart.png") }}" alt=""> <span id="cart-mobile-count">{{$cartCount}}</span></a>
+            <div class="price" id="cart-total">
                 {{ $cartTotal }} 
-                        @if(App::getLocale() === 'ar')
-                            د.إ
-                        @else
-                            AED
-                        @endif
             </div>
+                    <span class="currency">
+                        @if(App::getLocale() === 'ar') د.إ @else AED @endif
+                      </span>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__text">

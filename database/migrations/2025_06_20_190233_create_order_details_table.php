@@ -14,11 +14,10 @@ return new class extends Migration
             $table->foreignId('product_id')->nullable()->constrained('products')->nullOnDelete();
             $table->string('product_name');
             $table->float('purchase_price');
+            $table->float('discount_price');
             $table->float('sale_price');
             $table->unsignedSmallInteger('quantity')->default(1);
-            $table->foreignId('color_id')->nullable()->constrained('colors')->nullOnDelete();
-            $table->foreignId('size_id')->nullable()->constrained('sizes')->nullOnDelete();
-            $table->float('amount'); // qty * price
+            $table->float('amount');
             $table->unique(['order_id', 'product_id']);
             $table->timestamps();
         });

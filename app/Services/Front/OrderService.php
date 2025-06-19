@@ -32,10 +32,9 @@ class OrderService
                     'product_id' => $item->product_id,
                     'product_name' => $item->product->name,
                     'purchase_price' => $item->product->price->purchase_price,
+                    'discount_price' => $item->product->price->discount_price,
                     'sale_price' => $item->product->price->sale_price,
                     'quantity' => $item->qty,
-                    'color_id' => $item->color_id,
-                    'size_id' => $item->size_id,
                     'amount' => ($item->qty * \request()->sale_price),
                 ]);
             }

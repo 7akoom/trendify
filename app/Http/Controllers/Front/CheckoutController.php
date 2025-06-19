@@ -33,7 +33,6 @@ class CheckoutController extends Controller
 
     public function store(Request $request)
     {
-        Log::info(['info' => $request->all()]);
         $order = $this->orderService->storeOrder($request->all());
 
         if ($order) {

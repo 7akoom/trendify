@@ -31,7 +31,7 @@
                                     <select name="department_id"
                                             id="department_id"
                                             class="custom-form-select @error('department_id') is-invalid @enderror">
-                                        <option value="">اختر الفئة</option>
+                                        <option value="">اختر القسم</option>
                                         @foreach ($departments as $dep)
                                             <option value="{{ $dep->id }}"
                                                     {{ old('department_id') == $dep->id ? 'selected' : '' }}>

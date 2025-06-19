@@ -64,12 +64,12 @@
             </div>
             <div class="col-lg-4">
                 <div class="cart__total">
-                    <h6>Cart total</h6>
+                    <h6>{{__('messages.Total')}}</h6>
                     <ul>
-                        <li>Subtotal <span>{{$total}}</span></li>
-                        <li>Total <span>{{$total}}</span></li>
+                        <li>{{__('messages.SubTotal')}}  <span id="cart-page-subtotal">{{$cartTotal}}</span></li>
+                        <li>{{__('messages.FinalTotal')}}  <span id="cart-page-total">{{$cartTotal}}</span></li>
                     </ul>
-                    <a href="{{ route('checkout') }}" class="primary-btn">Proceed to checkout</a>
+                    <a href="{{ route('checkout') }}" class="primary-btn">{{__('messages.Checkout')}}</a>
                 </div>
             </div>
         </div>
