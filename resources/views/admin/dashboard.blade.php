@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-8">
                 <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">عدد المستخدمين</p>
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">{{__('dashboard.UsersCount')}}</p>
                     <h5 class="font-weight-bolder mb-0">
                     {{$users}}
                     </h5>
@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-8">
                 <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">عدد المنتجات</p>
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">{{__('dashboard.ProductsCount')}}</p>
                     <h5 class="font-weight-bolder mb-0">
                         {{$products}}
                     </h5>
@@ -51,7 +51,7 @@
             <div class="row">
                 <div class="col-8">
                 <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">عدد الطلبيات</p>
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">{{__('dashboard.OrdersCount')}}</p>
                     <h5 class="font-weight-bolder mb-0">
                         {{$orders}}
                     </h5>

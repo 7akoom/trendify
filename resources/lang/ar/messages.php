@@ -23,6 +23,7 @@ return [
     'Password' => 'كلمة المرور',
     'Password Confirmation' => 'تأكيد كلمة المرور',
     'Sign out' => 'تسجيل خروج',
+    'SameAsBilling' => 'نفس تفاصيل الدفع',
     'Profile' => 'الملف الشخصي',
     'Departments' => 'الأقسام',
     'Colors' => 'الألوان',
@@ -70,4 +71,5 @@ return [
     'SubTotal' => 'المجموع الفرعي',
     'FinalTotal' => 'المجموع الكلي',
     'Sum' => 'المجموع',
+    'Add' => 'إضافة',
 ];

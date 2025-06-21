@@ -27,17 +27,24 @@ class OrderService
             ]);
 
             foreach ($this->cartRepo->get() as $item) {
+                $unitPrice = $item->product->is_featured
+                    ? ($item->product->price->discount_price ?? $item->product->price->sale_price)
+                    : $item->product->price->sale_price;
+
+                $amount = $unitPrice * $item->qty;
+
                 OrderDetails::create([
-                    'order_id' => $order->id,
-                    'product_id' => $item->product_id,
-                    'product_name' => $item->product->name,
+                    'order_id'       => $order->id,
+                    'product_id'     => $item->product_id,
+                    'product_name'   => $item->product->name,
                     'purchase_price' => $item->product->price->purchase_price,
-                    'discount_price' => $item->product->price->discount_price,
-                    'sale_price' => $item->product->price->sale_price,
-                    'quantity' => $item->qty,
-                    'amount' => ($item->qty * \request()->sale_price),
+                    'discount_price' => $item->product->price->discount_price ?? 0,
+                    'sale_price'     => $unitPrice,
+                    'quantity'       => $item->qty,
+                    'amount'         => $amount,
                 ]);
             }
+
 
             foreach ($data['addr'] as $type => $address) {
                 $address['type'] = AddressType::fromSlug($type)->value;
@@ -49,7 +56,6 @@ class OrderService
             DB::commit();
             return $order;
         } catch (\Throwable $th) {
-            Log::info(['info' => $data]);
             Log::error(['error' => $th->getMessage()]);
             DB::rollBack();
             return null;

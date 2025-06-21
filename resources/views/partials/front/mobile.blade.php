@@ -15,8 +15,8 @@
             </div>
         </div>
         <div class="offcanvas__nav__option">
-            <a href="{{route('cart.index')}}"><img src="{{ asset("assets/front/img/icon/cart.png") }}" alt=""> <span id="cart-mobile-count">{{$cartCount}}</span></a>
-            <div class="price" id="cart-total">
+            <a href="{{route('cart.index')}}"><img src="{{ asset("assets/front/img/icon/cart.png") }}" alt=""> <span id="mobile-cart-count">{{$cartCount}}</span></a>
+            <div class="price" id="mobile-cart-total">
                 {{ $cartTotal }} 
             </div>
                     <span class="currency">

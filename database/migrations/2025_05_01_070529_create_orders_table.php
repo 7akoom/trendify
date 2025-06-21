@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('order_number')->unique();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->float('discount')->nullable();
-            $table->float('total');
+            $table->double('total', 8, 2);
             $table->string('payment_method');
             $table->text('notes')->nullable();
             $table->enum('payment_status', \App\Enums\PaymentStatus::values())->default('غير مدفوع');

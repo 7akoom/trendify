@@ -33,13 +33,17 @@ class CheckoutController extends Controller
 
     public function store(Request $request)
     {
-        $order = $this->orderService->storeOrder($request->all());
+        try {
+            $order = $this->orderService->storeOrder($request->all());
 
-        if ($order) {
-            return redirect()->route('shop')
-                ->with('success', 'تم استلام طلبكم بنجاح شكرا لاستخدامكم متجرنا');;
-        } else {
-            return back()->withErrors('حدث خطأ أثناء تنفيذ الطلب');
+            if ($order) {
+                return redirect()->route('shop')
+                    ->with('success', 'تم استلام طلبكم بنجاح شكرا لاستخدامكم متجرنا');;
+            } else {
+                return back()->withErrors('حدث خطأ أثناء تنفيذ الطلب');
+            }
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
         }
     }
 }

@@ -59,11 +59,9 @@
                                         <li>{{ sprintf('%02d', $loop->iteration) }}. {{$item->product->name}}
                                             <span>
                                                 @if ($item->product->is_featured)
-                                                    <h5>{{$item->product->price->discount_price}}</h5>
-                                                    <input name="sale_price" type="hidden" value="{{$item->product->price->discount_price}}">
+                                                    <h5>{{$item->product->price->discount_price * $item->qty}}</h5>
                                                 @else
-                                                    <h5>{{$item->product->price->sale_price}}</h5>
-                                                    <input name="sale_price" type="hidden" value="{{$item->product->price->sale_price}}">
+                                                    <h5>{{$item->product->price->sale_price * $item->qty}}</h5>
                                                 @endif
                                             </span>
                                     </li>
@@ -139,4 +137,27 @@
 </section>
 <!-- Checkout Section End -->
 
+@endsection
+
+@section('script')
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const checkbox = document.getElementById('sameAsBilling');
+
+        checkbox.addEventListener('change', function () {
+            const fields = ['first_name', 'last_name', 'street_address', 'city', 'state', 'country', 'postal_code', 'phone', 'email'];
+
+            fields.forEach(field => {
+                const billing = document.querySelector(`[name="addr[billing][${field}]"]`);
+                const shipping = document.querySelector(`[name="addr[shipping][${field}]"]`);
+
+                if (checkbox.checked) {
+                    shipping.value = billing.value;
+                } else {
+                    shipping.value = '';
+                }
+            });
+        });
+    });
+</script>
 @endsection

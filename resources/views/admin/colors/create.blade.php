@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card shadow">
                 <div class="card-header">
-                    <h5 class="mb-0">إضافة لون جديد</h5>
+                    <h5 class="mb-0">{{__('colors.AddNCol')}}</h5>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('admin.colors.store') }}"
@@ -16,7 +16,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="name">اسم اللون</label>
+                                    <label for="name">{{__('colors.Name')}}</label>
                                     <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
                                     @error('name')
                                         <span class="text-danger d-block mt-1">{{ $message }}</span>
@@ -26,7 +26,7 @@
                             
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="hex_code">اللون (اضغط على اللون لاختيار اللون)</label>
+                                    <label for="hex_code">{{__('colors.Color')}} ({{__('colors.Press')}})</label>
                                     <div class="d-flex align-items-center gap-3">
                                         <input type="color"
                                                id="hex_code_picker"
@@ -50,8 +50,8 @@
                         
 
                         <div class="text-end">
-                            <button type="submit" class="btn btn-primary">حفظ</button>
-                            <a href="{{ route('admin.colors.index') }}" class="btn btn-secondary">رجوع</a>
+                            <button type="submit" class="btn btn-primary">{{__('main.Save')}}</button>
+                            <a href="{{ route('admin.colors.index') }}" class="btn btn-secondary">{{__('main.Back')}}</a>
                         </div>
                     </form>
                 </div>

@@ -64,8 +64,8 @@
                         </div>
 
                         <div class="text-end">
-                            <button type="submit" class="btn btn-primary">حفظ</button>
-                            <a href="{{ route('admin.settings.index') }}" class="btn btn-secondary">رجوع</a>
+                            <button type="submit" class="btn btn-primary">{{__('main.Save')}}</button>
+                            <a href="{{ route('admin.settings.index') }}" class="btn btn-secondary">{{__('main.Back')}}</a>
                         </div>
                     </form>
                 </div>

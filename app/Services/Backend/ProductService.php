@@ -168,10 +168,10 @@ class ProductService
 
     public function replaceImages(Product $product, array $images): void
     {
-        foreach ($product->images as $img) {
-            Storage::disk('public')->delete($img->path);
-            $img->delete();
-        }
+        // foreach ($product->images as $img) {
+        //     Storage::disk('public')->delete($img->path);
+        //     $img->delete();
+        // }
 
         foreach ($images as $index => $image) {
             $path = $image->store('products', 'public');

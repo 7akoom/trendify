@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card shadow">
                 <div class="card-header">
-                    <h5 class="mb-0">تعديل القسم: {{ $department->name }}</h5>
+                    <h5 class="mb-0"> {{__('departments.EditDep')}}: {{ $department->name }}</h5>
                 </div>
                 <div class="card-body">
                     <form 
@@ -19,7 +19,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="name">اسم القسم</label>
+                                <label for="name">{{__('departments.Name')}}</label>
                                 <input type="text" class="form-control" id="name" name="name"
                                     value="{{ old('name', $department->name) }}">
                                 @error('name')
@@ -28,8 +28,8 @@
                             </div>
                         </div>
                         <div class="text-end">
-                            <button type="submit" class="btn btn-primary">تحديث</button>
-                            <a href="{{ route('admin.departments.index') }}" class="btn btn-secondary">رجوع</a>
+                            <button type="submit" class="btn btn-primary">{{__('main.Save')}}</button>
+                            <a href="{{ route('admin.departments.index') }}" class="btn btn-secondary">{{__('main.Back')}}</a>
                         </div>
                     </form>
                 </div>

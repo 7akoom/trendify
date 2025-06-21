@@ -26,7 +26,7 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text me-1">{{__('messages.Profile')}}</span>
+            <span class="nav-link-text me-1">{{__('sidebar.Profile')}}</span>
           </a>
         </li>
         <li class="nav-item">
@@ -46,7 +46,7 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text me-1">{{__('messages.Departments')}}</span>
+            <span class="nav-link-text me-1">{{__('sidebar.Departments')}}</span>
           </a>
         </li>
         <li class="nav-item">
@@ -66,7 +66,7 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text me-1">{{__('messages.Categories')}}</span>
+            <span class="nav-link-text me-1">{{__('sidebar.Categories')}}</span>
           </a>
         </li>
         
@@ -87,7 +87,7 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text me-1">{{__('messages.Colors')}}</span>
+            <span class="nav-link-text me-1">{{__('sidebar.Colors')}}</span>
           </a>
         </li>
         <li class="nav-item">
@@ -107,7 +107,7 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text me-1">{{__('messages.Units')}}</span>
+            <span class="nav-link-text me-1">{{__('sidebar.Units')}}</span>
           </a>
         </li>
         <li class="nav-item">
@@ -127,7 +127,7 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text me-1">{{__('messages.Products')}}</span>
+            <span class="nav-link-text me-1">{{__('sidebar.Products')}}</span>
           </a>
         </li>
         <li class="nav-item">
@@ -147,7 +147,7 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text me-1">{{__('messages.Banners')}}</span>
+            <span class="nav-link-text me-1">{{__('sidebar.Banners')}}</span>
           </a>
         </li>
         <li class="nav-item">
@@ -167,7 +167,7 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text me-1">{{__('messages.Settings')}}</span>
+            <span class="nav-link-text me-1">{{__('sidebar.Settings')}}</span>
           </a>
         </li>
         <li class="nav-item">
@@ -187,14 +187,14 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text me-1">{{__('messages.Orders')}}</span>
+            <span class="nav-link-text me-1">{{__('sidebar.Orders')}}</span>
           </a>
         </li>
         <li class="nav-item">
           <form method="POST" action="{{ route('admin.logout') }}">
             @csrf
             <button type="submit" class="nav-link border-0 bg-transparent w-100 text-start d-flex align-items-center">
-                <strong class="nav-link-text me-1">{{__('messages.Sign out')}}</strong>
+                <strong class="nav-link-text me-1">{{__('sidebar.Sign out')}}</strong>
             </button>
           </form>
         </li>

@@ -34,6 +34,7 @@
         });
         $('#cart-subtotal').text(total);
         $('#cart-total').text(total);
+        $('#mobile-cart-total').text(total);
         $('#cart-page-subtotal').text(total);
         $('#cart-page-total').text(total);
     }
@@ -121,7 +122,7 @@
                     timer: 1500,
                     showConfirmButton: false
                 });
-                $('#cart-mobile-count').text(response.cartCount);
+                $('#mobile-cart-count').text(response.cartCount);
                 $('#cart-count').text(response.cartCount);
                 $('#cart-total').text(response.cartTotal);
                 updateCartTotal();
@@ -133,56 +134,33 @@
     });
 
     $(document).on('click', '.add-cart', function(e){
-    e.preventDefault();
-
-    const csrf_token = '{{ csrf_token() }}';
-
-    $.ajax({
-        url: '/cart',
-        type: 'POST',
-        data: {
-            product_id: $(this).data('id'),
-            qty: 1,
-            _token: csrf_token
-        },
-        success: function (response) {
-            Swal.fire({
-                icon: 'success',
-                title: 'تم إضافة المنتج إلى سلتك بنجاح',
-                timer: 1500,
-                showConfirmButton: false
-            });
-            $('#cart-count').text(response.cartCount);
-            $('#cart-mobile-count').text(response.cartCount);
-            $('#cart-total').text(response.cartTotal);
-            $('#cart-page-subtotal').text(total);
-            $('#cart-page-total').text(total);
-        },
-        error: function (xhr, status, error) {
-            console.error('Error:', error);
-        }
-    });
-});
-
-</script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const checkbox = document.getElementById('sameAsBilling');
-
-        checkbox.addEventListener('change', function () {
-            const fields = ['first_name', 'last_name', 'street_address', 'city', 'state', 'country', 'postal_code', 'phone', 'email'];
-
-            fields.forEach(field => {
-                const billing = document.querySelector(`[name="addr[billing][${field}]"]`);
-                const shipping = document.querySelector(`[name="addr[shipping][${field}]"]`);
-
-                if (checkbox.checked) {
-                    shipping.value = billing.value;
-                } else {
-                    shipping.value = '';
-                }
-            });
+        e.preventDefault();
+        const csrf_token = '{{ csrf_token() }}';
+        $.ajax({
+            url: '/cart',
+            type: 'POST',
+            data: {
+                product_id: $(this).data('id'),
+                qty: 1,
+                _token: csrf_token
+            },
+            success: function (response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'تم إضافة المنتج إلى سلتك بنجاح',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                $('#cart-count').text(response.cartCount);
+                $('#mobile-cart-count').text(response.cartCount);
+                $('#cart-total').text(response.cartTotal);
+                $('#cart-page-subtotal').text(response.cartTotal);
+                $('#cart-page-total').text(response.cartTotal);
+                console.log(response.cartTotal);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error:', error);
+            }
         });
     });
 </script>

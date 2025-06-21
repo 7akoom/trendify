@@ -17,7 +17,7 @@ return new class extends Migration
             $table->float('discount_price');
             $table->float('sale_price');
             $table->unsignedSmallInteger('quantity')->default(1);
-            $table->float('amount');
+            $table->double('amount', 8, 2);
             $table->unique(['order_id', 'product_id']);
             $table->timestamps();
         });

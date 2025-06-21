@@ -4,16 +4,16 @@
 <div class="container-fluid py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <a href="{{ route('admin.banners.create') }}" class="btn bg-gradient-primary">
-            إضافة
+            {{__('main.Add')}}
         </a>
-        <h5 class="mb-0 ms-6">عدد اللافتات: {{ $banners->count() }}</h5>
+        <h5 class="mb-0 ms-6">{{__('banners.BanCount')}}: {{ $banners->count() }}</h5>
     </div>
 
     <div class="row">
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header pb-0">
-              <h6>قائمة اللافتات</h6>
+              <h6>{{__('banners.Banners List')}}</h6>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
@@ -21,18 +21,18 @@
                   <thead>
                     <tr>
                       <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">
-                        العنوان
+                        {{__('banners.Title')}}
                       </th>
                       <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">
-                        الوصف
+                        {{__('banners.Desc')}}
                       </th>
                       <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                        الصورة
+                        {{__('banners.Img')}}
                       </th>
                       <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                        الحالة
+                        {{__('categories.Status')}}
                       </th>
-                      <th class="text-secondary text-center opacity-7">الإجراءات</th>
+                      <th class="text-secondary text-center opacity-7">{{__('main.Actions')}}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -55,13 +55,13 @@
                             </td>
                             <td class="align-middle text-center">
                                 <a href="{{ route('admin.banners.edit', $ban->id) }}">
-                                    تعديل
+                                    {{__('main.Edit')}}
                                 </a>
 
                                 <a href="#"
                                    class="delete-btn text-danger font-weight-bold m-3"
                                    data-id="{{ $ban->id }}">
-                                   حذف
+                                   {{__('main.Delete')}}
                                 </a>
                                 <form id="delete-form-{{ $ban->id }}"
                                       action="{{ route('admin.banners.destroy', $ban->id) }}"

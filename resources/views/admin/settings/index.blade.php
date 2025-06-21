@@ -61,7 +61,7 @@
                         </div>
 
                         <div class="text-end">
-                            <a href="{{ route('admin.settings.edit', $setting->id) }}" class="btn btn-secondary">تعديل</a>
+                            <a href="{{ route('admin.settings.edit', $setting->id) }}" class="btn btn-secondary">{{__('main.Edit')}}</a>
                         </div>
                 </div>
             </div>
