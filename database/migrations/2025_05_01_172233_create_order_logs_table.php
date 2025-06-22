@@ -10,10 +10,11 @@ return new class extends Migration
     {
         Schema::create('order_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained('orders');
-            $table->string('type'); // 1 => payment_status, 2 => status 
-            $table->string('payment_status')->nullable(); // 1 => paid, 2 => unpaid 
-            $table->string('status')->nullable(); // 1 => cancelled, 2 => delivered, 3 => new, 4 => process
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
+            $table->foreignId('admin_id')->nullable()->constrained('admins');
+            $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->string('type');
+            $table->string('status');
             $table->timestamps();
         });
     }

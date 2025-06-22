@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HasStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    use HasStatus;
+
     protected $fillable = [
         'user_id',
         'discount',

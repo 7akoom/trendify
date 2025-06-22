@@ -20,6 +20,7 @@
                                     <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+                                    <a href="{{ route('user.orders') }}">{{ __('messages.MyOrders') }}</a>
                                 @else
                                     <a href="{{ route('user.login') }}">{{ __('messages.Signin') }}</a>
                                 @endif

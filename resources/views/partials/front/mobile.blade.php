@@ -2,7 +2,19 @@
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__option">
             <div class="offcanvas__links">
-                <a href="#">{{__('messages.Signin')}}</a>
+                @if(auth()->check())
+                                    <a href="{{ route('user.logout') }}"
+                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                       {{ __('messages.Sign out') }}
+                                    </a>
+                            
+                                    <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                    <a href="{{ route('user.orders') }}">{{ __('messages.MyOrders') }}</a>
+                                @else
+                                    <a href="{{ route('user.login') }}">{{ __('messages.Signin') }}</a>
+                                @endif
             </div>
             <div class="offcanvas__top__hover">
                 <div class="header__top__hover">

@@ -8,8 +8,9 @@ class OrderLog extends Model
 {
     protected $fillable = [
         'order_id',
+        'admin_id',
+        'user_id',
         'type',
-        'payment_status',
         'status',
     ];
 

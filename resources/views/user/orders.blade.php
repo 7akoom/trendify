@@ -1,6 +1,5 @@
-@extends('admin.layout')
+@extends('user.app')
 @section('content')
-
 <div class="container-fluid py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h5 class="mb-0 ms-6"> {{__('orders.OrdCount')}}: {{ $orders->count() }}</h5>
@@ -44,34 +43,22 @@
                             <td class="align-middle text-center">{{ $ord->order_number }}</td>
                             <td class="align-middle text-center">{{ $ord->user->name }}</td>
                             <td class="align-middle text-center"><span class="badge {{ $ord->order_status_badge_class }}">
-                              {{ $ord->status }}
-                          </span></td>
+                                {{ $ord->status }}
+                            </span>
+                            </td>
                             <td class="align-middle text-center">{{ $ord->payment_status }}</td>
                             <td class="align-middle text-center">{{ $ord->total }}</td>
                             <td class="align-middle text-center">{{ $ord->created_at->format('Y-m-d') }}</td>
                             <td class="align-middle text-center">
                               <div class="d-flex justify-content-center gap-3">
-                                  <a href="{{ route('admin.orders.show', $ord->id) }}" class="text-primary">
+                                  <a href="{{ route('user.order.details', $ord->id) }}" class="text-primary">
                                       {{ __('main.Details') }}
                                   </a>
                           
-                                  <a href="{{ route('admin.orders.edit', $ord->id) }}">
-                                      {{ __('main.Edit') }}
-                                  </a>
-                          
-                                  <a href="#"
-                                     class="delete-btn text-danger font-weight-bold"
-                                     data-id="{{ $ord->id }}">
-                                      {{ __('main.Delete') }}
+                                  <a href="{{route('user.cancell.order', $ord->id)}}">
+                                      {{ __('main.Cancell') }}
                                   </a>
                               </div>
-                          
-                              <form id="delete-form-{{ $ord->id }}"
-                                    action="{{ route('admin.orders.destroy', $ord->id) }}"
-                                    method="POST" style="display: none;">
-                                  @csrf
-                                  @method('DELETE')
-                              </form>
                           </td>
                           
                         </tr>
@@ -84,4 +71,5 @@
         </div>
       </div>
 </div>
+
 @endsection

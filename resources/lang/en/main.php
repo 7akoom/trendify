@@ -9,4 +9,5 @@ return [
     'Save' => 'Save',
     'Back' => 'Back',
     'Details' => 'Details',
+    'Cancell' => 'Cancell',
 ];

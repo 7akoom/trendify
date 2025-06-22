@@ -48,6 +48,9 @@ Route::middleware('auth:web')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('user.logout');
     Route::get('checkout', [CheckoutController::class, 'create'])->name('checkout');
     Route::post('checkout', [CheckoutController::class, 'store']);
+    Route::get('orders', [OrderController::class, 'userOrders'])->name('user.orders');
+    Route::get('order-details/{order}', [OrderController::class, 'userOrderDetails'])->name('user.order.details');
+    Route::get('/cancell-order/{order}', [OrderController::class, 'cancellOrder'])->name('user.cancell.order');
 });
 
 Route::get('lang/{locale}', function ($locale) {
@@ -106,7 +109,7 @@ Route::middleware('auth:admin')->prefix('admin')->as('admin.')->group(function (
     Route::resource('orders', OrderController::class);
 });
 
-Route::get('generate', function (){
+Route::get('generate', function () {
     \Illuminate\Support\Facades\Artisan::call('storage:link');
     echo 'ok';
 });

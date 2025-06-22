@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Cart;
+use App\Models\Order;
+use App\Observers\OrderObserver;
 use Illuminate\Support\Facades\App;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
@@ -22,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
+
+        Order::observe(OrderObserver::class);
 
         View::composer('*', function ($view) {
             $cartRepo = app(CartRepositoryInterface::class);

@@ -9,4 +9,5 @@ return [
     'Save' => 'حفظ',
     'Back' => 'رجوع',
     'Details' => 'التفاصيل',
+    'Cancell' => 'إلغاء',
 ];

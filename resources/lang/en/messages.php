@@ -62,4 +62,5 @@ return [
     'SubTotal' => 'SubTotal',
     'FinalTotal' => 'Total Amount',
     'Sum' => 'Product Total',
+    'MyOrders' => 'My Orders',
 ];
