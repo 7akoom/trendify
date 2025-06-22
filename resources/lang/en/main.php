@@ -10,4 +10,6 @@ return [
     'Back' => 'Back',
     'Details' => 'Details',
     'Cancell' => 'Cancell',
+    'Block' => 'Block',
+    'unBlock' => 'Unblock',
 ];

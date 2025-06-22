@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\{
     SizeController,
     AdminAuthController,
     OrderController,
+    UserController,
 };
 use App\Http\Controllers\Front\{
     HomeController,
@@ -107,6 +108,8 @@ Route::middleware('auth:admin')->prefix('admin')->as('admin.')->group(function (
     Route::get('/settings/edit/{setting}', [SettingController::class, 'edit'])->name('settings.edit');
     Route::put('/settings/{setting}', [SettingController::class, 'update'])->name('settings.update');
     Route::resource('orders', OrderController::class);
+    Route::resource('users', UserController::class);
+    Route::get('users/toggle-status/{user}', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
 });
 
 Route::get('generate', function () {

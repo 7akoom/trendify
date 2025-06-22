@@ -83,15 +83,15 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                @foreach ($order->products as $pro)
+                                @foreach ($order->orderDetails as $pro)
                                     <tr id="row-{{ $pro->id }}">
                                         <td class="align-middle text-center">{{ $loop->iteration }}</td>
-                                        <td class="align-middle text-center">{{ $pro->pivot->product_name }}</td>
-                                        <td class="align-middle text-center">{{ $pro->pivot->purchase_price }}</td>
-                                        <td class="align-middle text-center">{{ $pro->pivot->discount_price }}</td>
-                                        <td class="align-middle text-center">{{ $pro->pivot->sale_price }}</td>
-                                        <td class="align-middle text-center">{{ $pro->pivot->quantity }}</td>                                      
-                                        <td class="align-middle text-center">{{ $pro->pivot->amount }}</td>                                      
+                                        <td class="align-middle text-center">{{ $pro->product_name }}</td>
+                                        <td class="align-middle text-center">{{ $pro->purchase_price }}</td>
+                                        <td class="align-middle text-center">{{ $pro->discount_price }}</td>
+                                        <td class="align-middle text-center">{{ $pro->sale_price }}</td>
+                                        <td class="align-middle text-center">{{ $pro->quantity }}</td>                                      
+                                        <td class="align-middle text-center">{{ $pro->amount }}</td>                                      
                                     </tr>
                                 @endforeach
                               </tbody>

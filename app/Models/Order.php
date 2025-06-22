@@ -77,4 +77,9 @@ class Order extends Model
         return $this->hasOne(OrderAddress::class, 'order_id', 'id')
             ->where('type', 'شحن');
     }
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetails::class);
+    }
 }

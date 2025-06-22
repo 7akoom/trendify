@@ -17,17 +17,16 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        if (Auth::guard('web')->attempt($request->only('email', 'password'))) {
-            $matched = User::where('email', $request['email'])
-                ->first();
-            if (!$matched->status) {
-                return back()->withErrors(['email' => 'لا يمكن تسجيل الدخول']);
-            }
+        if (Auth::guard('web')->attempt(
+            $request->only('email', 'password') + ['status' => 1]
+        )) {
             $request->session()->regenerate();
             return redirect()->route('home');
         }
-        return back()->withErrors(['email' => 'بيانات اعتماد غير صالحة']);
+
+        return back()->withErrors(['email' => 'الحساب معطل أو بيانات اعتماد غير صالحة.']);
     }
+
 
     public function logout(Request $request)
     {

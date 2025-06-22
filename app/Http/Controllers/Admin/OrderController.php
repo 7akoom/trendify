@@ -28,6 +28,7 @@ class OrderController extends Controller
 
     public function edit(Order $order)
     {
+        Log::info('Order with relations:', $order->toArray());
         $order = $this->service->show($order);
         $statuses = \App\Enums\OrderStatus::cases();
         $payment = PaymentStatus::cases();

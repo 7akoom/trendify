@@ -11,4 +11,5 @@ return [
     'Settings' => 'Settings',
     'Orders' => 'Orders',
     'Sign out' => 'Sign out',
+    'Users' => 'Users',
 ];

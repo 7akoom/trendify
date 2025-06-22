@@ -18,7 +18,7 @@ class OrderService
 
     public function show(Order $order)
     {
-        $order->load(['user', 'products', 'billingAddress', 'shippingAddress']);
+        $order->load(['user', 'products', 'billingAddress', 'orderDetails', 'shippingAddress']);
         return $order;
     }
 
