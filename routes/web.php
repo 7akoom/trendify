@@ -20,6 +20,7 @@ use App\Http\Controllers\Front\{
     AuthController,
     CartController,
     CheckoutController,
+    ContactController,
     ForgotPasswordController,
     ResetPasswordController
 };
@@ -41,6 +42,12 @@ Route::controller(ProductController::class)
         Route::get('/filter-products-by-category', 'filterByCategory')->name('filter.products.by.category');
         Route::get('/filter-products-by-feature', 'filterFeaturedOrNew')->name('filter.products.type');
         Route::get('/product/show/{product}', 'show')->name('product.show');
+    });
+
+Route::controller(ContactController::class)
+    ->group(function () {
+        Route::get('/contact', 'index')->name('contact');
+        Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
     });
 
 Route::resource('cart', CartController::class);

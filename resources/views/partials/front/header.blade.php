@@ -57,11 +57,11 @@
                         <li class="{{ request()->routeIs('shop') ? 'active' : '' }}">
                             <a href="{{ route('shop') }}">{{ __('messages.Shop') }}</a>
                         </li>
-                        <li class="{{ request()->routeIs('about') ? 'active' : '' }}">
+                        {{-- <li class="{{ request()->routeIs('about') ? 'active' : '' }}">
                             <a href="{{ route('home') }}">{{ __('messages.About Us') }}</a>
-                        </li>
+                        </li> --}}
                         <li class="{{ request()->routeIs('contact') ? 'active' : '' }}">
-                            <a href="{{ route('home') }}">{{ __('messages.Contact') }}</a>
+                            <a href="{{ route('contact') }}">{{ __('messages.Contact') }}</a>
                         </li>
                         
                     </ul>
