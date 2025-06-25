@@ -63,4 +63,5 @@ return [
     'FinalTotal' => 'Total Amount',
     'Sum' => 'Product Total',
     'MyOrders' => 'My Orders',
+    'fb' => 'Facebook',
 ];

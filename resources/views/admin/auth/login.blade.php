@@ -68,7 +68,8 @@
             Copyright © <script>
               document.write(new Date().getFullYear())
             </script>
-            <a href="https://www.linkedin.com/in/hkmt-ali/" class="font-weight-bold" target="_blank">HKMT ALI</a>
+            ,
+            All rights reserved <i class="fa fa-heart"></i>
           </p>
         </div>
       </div>
