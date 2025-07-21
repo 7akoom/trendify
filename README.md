@@ -15,7 +15,7 @@ Trendify Dubai is a modern e-commerce platform specializing in selling premium c
 
 ## Live
 
-https://trendify-dubai.com/
+👉 https://trendify-dubai.com/
 
 
 ## Features
