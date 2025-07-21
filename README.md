@@ -30,7 +30,7 @@ https://trendify-dubai.com/
 
 ## Screenshots
 
-![Home Page](./Screenshot 2025-07-21 190718.png.png)
+![Home Page](./screenshots/Screenshot 2025-07-21 190718.png)
 
 
 ## Tech Stack
