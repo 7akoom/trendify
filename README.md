@@ -95,7 +95,10 @@ This project is used by the following companies:
 - Trendify-dubai
 
 
-## 👨‍💻 About Me [@7akoom](https://www.github.com/7akoom)
+## 👨‍💻 About Me 
+
+[@7akoom](https://www.github.com/7akoom)
+
 I'm Hkmt, a passionate full-stack web developer specialized in Laravel and modern JavaScript frameworks. I enjoy building scalable applications that deliver real value.
 
 Currently building **Trendify Dubai**, a niche-focused e-commerce solution for the specialty coffee market in the UAE.
@@ -109,9 +112,5 @@ Javascript, HTML, CSS, React js, Laravel
 ## 🔗 Links
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/hkmt-ali/)
 
-
-## Authors
-
-- [@7akoom](https://www.github.com/7akoom)
 
 
