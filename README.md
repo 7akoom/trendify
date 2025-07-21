@@ -31,6 +31,13 @@ https://trendify-dubai.com/
 ## Screenshots
 
 ![Home Page](./screenshots/Screenshot%202025-07-21%20190718.png)
+![Latest Products Page](./screenshots/Screenshot%202025-07-21%190754.png)
+![Shop Page](./screenshots/Screenshot%202025-07-21%190817.png)
+![Cart Page](./screenshots/Screenshot%202025-07-21%190847.png)
+![Admin Products Page](./screenshots/Screenshot%202025-07-21%190923.png)
+![Add Products Page](./screenshots/Screenshot%202025-07-21%190941.png)
+![Sign in Page](./screenshots/Screenshot%202025-07-21%191024.png)
+![Sign up Page](./screenshots/Screenshot%202025-07-21%191041.png)
 
 
 ## Tech Stack
