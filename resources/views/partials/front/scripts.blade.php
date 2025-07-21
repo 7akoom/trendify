@@ -25,17 +25,21 @@
 <script>
 
     function updateCartTotal() {
-        let total = 0;
+        let subtotal = 0;
         $('tbody tr').each(function() {
             let price = parseFloat($(this).find('.cart__price').text());
             if (!isNaN(price)) {
-                total += price;
+                subtotal += price;
             }
         });
+
+        let shipping = subtotal > 0 ? {{ optional(\App\Models\Setting::first())->shipping_costs ?? 0 }} : 0;
+        let total = subtotal + shipping;
+
         $('#cart-subtotal').text(total);
         $('#cart-total').text(total);
         $('#mobile-cart-total').text(total);
-        $('#cart-page-subtotal').text(total);
+        $('#cart-page-subtotal').text(subtotal);
         $('#cart-page-total').text(total);
     }
 
@@ -102,9 +106,10 @@
 <script>
     $(document).on('click', '.remove-item', function(e){
         e.preventDefault();
-
+        
         let id = $(this).data('id');
         const csrf_token = '{{ csrf_token() }}';
+        const row = $(`tr[data-id="${id}"]`);
 
         $.ajax({
             url: '/cart/' + id,
@@ -114,7 +119,7 @@
                 _token: csrf_token
             },
             success: function (response) {
-                $(`tr[data-id="${id}"]`).remove();
+                row.remove();
 
                 Swal.fire({
                     icon: 'success',
@@ -126,6 +131,9 @@
                 $('#cart-count').text(response.cartCount);
                 $('#cart-total').text(response.cartTotal);
                 updateCartTotal();
+                if ($('tbody tr').length === 0) {
+                $('#shipping_costs').text(0);
+            }
             },
             error: function (xhr, status, error) {
                 console.error('Error:', error);

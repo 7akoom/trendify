@@ -15,7 +15,12 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'unique:users,phone'],
+            'phone' => [
+                'required',
+                'string',
+                'unique:users,phone',
+                'regex:/^(\+?9715\d{8}|05\d{8})$/'
+            ],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ];
@@ -23,16 +28,6 @@ class RegisterRequest extends FormRequest
 
     public function messages(): array
     {
-        return [
-            'name.required' => 'الاسم مطلوب.',
-            'phone.required' => 'رقم الهاتف مطلوب.',
-            'phone.unique' => 'رقم الهاتف مستخدم من قبل.',
-            'email.email' => 'البريد الإلكتروني غير صالح.',
-            'email.unique' => 'البريد الإلكتروني مستخدم من قبل.',
-            'email.required' => 'البريد الإلكتروني مطلوب.',
-            'password.required' => 'كلمة المرور مطلوبة.',
-            'password.min' => 'كلمة المرور يجب أن تكون 6 أحرف على الأقل.',
-            'password.confirmed' => 'تأكيد كلمة المرور غير مطابق.',
-        ];
+        return [];
     }
 }

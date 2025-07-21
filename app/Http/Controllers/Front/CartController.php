@@ -29,13 +29,14 @@ class CartController extends Controller
         /** @var \App\Repositories\CartRepositoryInterface $cartRepo */
         $this->cartRepo->add($product, $request->post('qty'));
         $cartRepo = app(CartRepositoryInterface::class);
+        $totals = $cartRepo->totals();
 
         if ($request->ajax()) {
             return response()->json([
                 'success' => true,
                 'message' => 'تمت إضافة المنتج إلى السلة بنجاح',
                 'cartCount' => $cartRepo->count(),
-                'cartTotal' => $cartRepo->total(),
+                'cartTotal' => $totals['total'],
             ]);
         }
 
@@ -61,13 +62,14 @@ class CartController extends Controller
     {
         $this->cartRepo->delete($id);
         $cartRepo = app(CartRepositoryInterface::class);
+        $totals = $cartRepo->totals();
 
         if (request()->ajax()) {
             return response()->json([
                 'success' => true,
                 'message' => 'تمت إضافة المنتج إلى السلة بنجاح',
                 'cartCount' => $cartRepo->count(),
-                'cartTotal' => $cartRepo->total(),
+                'cartTotal' => $totals['total'],
             ]);
         }
         return redirect()

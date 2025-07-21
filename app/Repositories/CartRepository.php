@@ -79,23 +79,6 @@ class CartRepository implements CartRepositoryInterface
         Cart::query()->delete();
     }
 
-    // public function total(): float
-    // {
-    //     return $this->get()->sum(function ($item) {
-    //         $product = optional($item->product);
-    //         $price   = optional($product->price);
-
-    //         $discountPrice = $price->discount_price ?? 0;
-    //         $salePrice     = $price->sale_price ?? 0;
-    //         $isFeatured    = $product->is_featured ?? false;
-
-    //         if ($isFeatured && $discountPrice > 0) {
-    //             return $item->qty * $discountPrice;
-    //         }
-    //         return $item->qty * $salePrice;
-    //     });
-    // }
-
     public function total(): float
     {
         $subtotal = $this->get()->sum(function ($item) {
@@ -133,7 +116,7 @@ class CartRepository implements CartRepositoryInterface
             return $item->qty * $salePrice;
         });
 
-        $shipping = optional(\App\Models\Setting::first())->shipping_costs ?? 0.0;
+        $shipping = $subtotal > 0 ? optional(\App\Models\Setting::first())->shipping_costs : 0.0;
         $total = $subtotal + $shipping;
 
         return [

@@ -67,7 +67,7 @@
                     <h6>{{__('messages.Total')}}</h6>
                     <ul>
                         <li>{{__('messages.SubTotal')}}  <span id="cart-page-subtotal">{{$cartSubTotal}}</span></li>
-                        <li>{{__('messages.shipping_costs')}}  <span id="cart-page-subtotal">{{$shippingCosts}}</span></li>
+                        <li>{{__('messages.shipping_costs')}}  <span id="shipping_costs">{{$shippingCosts}}</span></li>
                         <li>{{__('messages.FinalTotal')}}  <span id="cart-page-total">{{$cartTotal}}</span></li>
                     </ul>
                     <a href="{{ route('checkout') }}" class="primary-btn">{{__('messages.Checkout')}}</a>
