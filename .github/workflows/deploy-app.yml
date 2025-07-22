@@ -13,12 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup SSH agent
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.TRANSIP_SSH_KEY }}
+      # استبدال خطوة إعداد SSH agent بخطوات يدوية:
+      - name: Setup SSH manually
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.TRANSIP_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H trengi.ssh.transip.me >> ~/.ssh/known_hosts
 
       - name: Debug SSH Connection
-        run: |
-          ssh -vvv trendify-dubaicom@trengi.ssh.transip.me echo "SSH connection works!"
-
+        run: ssh -vvv trendify-dubaicom@trengi.ssh.transip.me echo "SSH connection works!"
