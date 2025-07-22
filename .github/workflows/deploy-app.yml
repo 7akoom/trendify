@@ -1,0 +1,23 @@
+name: Deploy to TransIP Server
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.TRANSIP_SSH_KEY }}
+
+      - name: Deploy files via rsync
+        run: |
+          rsync -avz --delete ./ trendify-dubaicom@trengi.ssh.transip.me:/www/
