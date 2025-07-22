@@ -18,6 +18,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.TRANSIP_SSH_KEY }}
 
-      - name: Deploy files via rsync
+      - name: Debug SSH Connection
         run: |
-          rsync -avz --delete ./ trendify-dubaicom@trengi.ssh.transip.me:/www/
+          ssh -vvv trendify-dubaicom@trengi.ssh.transip.me echo "SSH connection works!"
+
