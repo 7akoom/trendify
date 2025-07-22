@@ -68,6 +68,7 @@
                                     @endforeach
                                 </ul>
                                 <ul class="checkout__total__all">
+                                    <li>{{__('messages.shipping_costs')}} <span>{{$shippingCosts}}</span></li>
                                     <li>{{__('messages.Total')}} <span>{{$total}}</span></li>
                                     <input name="total" type="hidden" value="{{$total}}">
                                 </ul>

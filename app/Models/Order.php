@@ -37,7 +37,7 @@ class Order extends Model
             ->withPivot([
                 'product_name',
                 'purchase_price',
-                'discount_price',
+                // 'discount_price',
                 'sale_price',
                 'quantity',
                 'amount',
