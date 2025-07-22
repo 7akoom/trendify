@@ -3,7 +3,7 @@ name: Deploy to TransIP Server
 on:
   push:
     branches:
-      - main 
+      - main
 
 jobs:
   deploy:
@@ -13,7 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # استبدال خطوة إعداد SSH agent بخطوات يدوية:
       - name: Setup SSH manually
         run: |
           mkdir -p ~/.ssh
@@ -26,4 +25,8 @@ jobs:
 
       - name: Deploy files via rsync
         run: |
-          rsync -avz --delete ./ trendify-dubaicom@trengi.ssh.transip.me:/www/
+          set -x
+          rsync -avz --delete \
+            --exclude='.git/' \
+            --exclude='node_modules/' \
+            ./ trendify-dubaicom@trengi.ssh.transip.me:~/www/
