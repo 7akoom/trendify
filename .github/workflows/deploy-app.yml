@@ -23,3 +23,7 @@ jobs:
 
       - name: Debug SSH Connection
         run: ssh -vvv trendify-dubaicom@trengi.ssh.transip.me echo "SSH connection works!"
+
+      - name: Deploy files via rsync
+        run: |
+          rsync -avz --delete ./ trendify-dubaicom@trengi.ssh.transip.me:/www/
