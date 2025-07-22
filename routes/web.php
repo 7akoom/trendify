@@ -119,7 +119,7 @@ Route::middleware('auth:admin')->prefix('admin')->as('admin.')->group(function (
     Route::get('users/toggle-status/{user}', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
 });
 
-Route::get('generate', function () {
-    \Illuminate\Support\Facades\Artisan::call('storage:link');
-    echo 'ok';
-});
+// Route::get('generate', function () {
+//     \Illuminate\Support\Facades\Artisan::call('storage:link');
+//     echo 'ok';
+// });
