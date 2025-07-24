@@ -8,8 +8,8 @@
 // scss-docs-start import-stack
 // Configuration
 @import "functions";
-@import "variables";
-@import "mixins";
+@use 'variables';
+@use "mixins";
 @import "utilities";
 
 // Layout & components
@@ -29,7 +29,7 @@
 @import "navbar";
 @import "card";
 @import "accordion";
-@import "breadcrumb";
+@use "breadcrumb";
 @import "pagination";
 @import "badge";
 @import "alert";

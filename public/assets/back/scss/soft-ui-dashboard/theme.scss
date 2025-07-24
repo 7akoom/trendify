@@ -35,10 +35,10 @@
 @import "cards";
 @import "dropdown";
 @import "dropup";
-@import "header";
+@use "header";
 @import "fixed-plugin";
 @import "forms/forms";
-@import "footer";
+@use "footer";
 @import "gradients";
 @import "info-areas";
 @import "misc";

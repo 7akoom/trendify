@@ -7,8 +7,8 @@
 
 // Configuration
 @import "functions";
-@import "variables";
-@import "mixins";
+@use 'variables';
+@use "mixins";
 @import "utilities";
 
 // Helpers
